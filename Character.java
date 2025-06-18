@@ -9,6 +9,7 @@ import java.util.HashMap;
 public class Character
 {
     // instance variables - replace the example below with your own
+    private String name;
     private int health;
     private int strength;
     private int intellegence;
@@ -22,9 +23,10 @@ public class Character
     /**
      * Constructor for objects of class character
      */
-    public Character(int hp, int str, int intel, int gp)
+    public Character(String nm, int hp, int str, int intel, int gp)
     {
         // initialise instance variables
+        name = nm;
         health = hp;
         strength = str;
         intellegence = intel;
@@ -32,5 +34,45 @@ public class Character
         
         inventory = new HashMap<Integer, Item>();
         
+    }
+    
+    /**
+     * name getter
+     */
+    public String getName(){
+        //returns gold value
+        return name;
+    }
+    
+    /**
+     * health getter
+     */
+    public int getHp(){
+        //returns health value
+        return health;
+    }
+    
+    /**
+     * strength getter
+     */
+    public int getStrength(){
+        //returns strength value
+        return strength;
+    }
+    
+    /**
+     * intellegence getter
+     */
+    public int getIntel(){
+        //returns intellegence value
+        return intellegence;
+    }
+    
+    /**
+     * gold getter
+     */
+    public int getGold(){
+        //returns gold value
+        return gold;
     }
 }
