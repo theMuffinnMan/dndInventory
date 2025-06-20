@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import ecs100.*;
 /**
  * Instance of a character.
  * Stores all of the characters values and inventory hashmap.
@@ -18,12 +19,14 @@ public class Character
     
     private HashMap<Integer, Item> inventory;
     private static final int MAX_INV_SIZE = 4;
+    private int currInvId;
+    private Item currItem;
     
 
     /**
      * Constructor for objects of class character
      */
-    public Character(String nm, int hp, int str, int intel, int gp)
+    public Character(String nm, int hp, int str, int intel, int gp, String item1Name)
     {
         // initialise instance variables
         name = nm;
@@ -32,7 +35,12 @@ public class Character
         intellegence = intel;
         gold = gp;
         
+        //inventory shennanegins
         inventory = new HashMap<Integer, Item>();
+        Item i1 = new Item(item1Name);
+        this.inventory.put(1, i1);
+        this.currInvId = 1;
+        this.currItem = inventory.get(currInvId);
         
     }
     
@@ -74,5 +82,13 @@ public class Character
     public int getGold(){
         //returns gold value
         return gold;
+    }
+    
+    /**
+     * inventory getter
+     */
+    public HashMap<Integer, Item> getInv(){
+        //returns all inv items
+        return inventory;
     }
 }

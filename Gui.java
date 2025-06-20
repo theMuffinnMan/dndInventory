@@ -1,4 +1,5 @@
 import ecs100.*;
+import java.util.HashMap;
 /**
  * Display and user interaction.
  *
@@ -32,5 +33,19 @@ public class Gui
         UI.println("Strength: " + charCol.getCharacter().getStrength());
         UI.println("Intellegence: " + charCol.getCharacter().getIntel());
         UI.println("Gold: " + charCol.getCharacter().getGold());
+        
+        //print inventory
+        //loop through each item and print item
+        UI.println("Inventory");
+        for ( int i: charCol.getCharacter().getInv().keySet() ){
+            UI.println(charCol.getCharacter().getInv().get(i).getName());
+        }
+    }
+    
+    /**
+     * main function
+     */
+    public static void main(String[] args){
+        Gui gui = new Gui();
     }
 }

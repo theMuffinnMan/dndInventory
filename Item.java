@@ -10,15 +10,21 @@ public class Item
 {
     // instance variables - replace the example below with your own
     private String name;
-    private String description;
 
     /**
      * Constructor for objects of class Item
      */
-    public Item(String nm, String desc)
+    public Item(String nm)
     {
         // initialise instance variables
         name = nm;
-        description = desc;
+    }
+    
+    /**
+     * name getter
+     */
+    public String getName(){
+        //returns items name
+        return name;
     }
 }
