@@ -34,11 +34,17 @@ public class Gui
         UI.println("Intellegence: " + charCol.getCharacter().getIntel());
         UI.println("Gold: " + charCol.getCharacter().getGold());
         
+        //print hand
+        UI.println("Hand Item: " + charCol.getCharacter().getHand().getName());
+        
         //print inventory
         //loop through each item and print item
-        UI.println("Inventory");
-        for ( int i: charCol.getCharacter().getInv().keySet() ){
-            UI.println(charCol.getCharacter().getInv().get(i).getName());
+        UI.print("Inventory: ");
+        for ( int i: charCol.getCharacter().getInv().keySet()){
+            UI.print(charCol.getCharacter().getInv().get(i).getName());
+            if ( i < charCol.getCharacter().getInv().size()){
+                UI.print(", ");
+            }
         }
     }
     

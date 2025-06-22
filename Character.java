@@ -2,7 +2,7 @@ import java.util.HashMap;
 import ecs100.*;
 /**
  * Instance of a character.
- * Stores all of the characters values and inventory hashmap.
+ * Stores all of the characters values and inventory HashMap.
  *
  * @Fleur
  * @version (a version number or a date)
@@ -22,11 +22,12 @@ public class Character
     private int currInvId;
     private Item currItem;
     
+    private Item handItem;
 
     /**
      * Constructor for objects of class character
      */
-    public Character(String nm, int hp, int str, int intel, int gp, String item1Name)
+    public Character(String nm, int hp, int str, int intel, int gp, String item1Name, String item2Name, String itemHandName)
     {
         // initialise instance variables
         name = nm;
@@ -35,15 +36,49 @@ public class Character
         intellegence = intel;
         gold = gp;
         
-        //inventory shennanegins
+        //inventory 
         inventory = new HashMap<Integer, Item>();
+        //item creation
         Item i1 = new Item(item1Name);
+        Item i2 = new Item(item2Name);
+        //place items into HashMap
         this.inventory.put(1, i1);
-        this.currInvId = 1;
-        this.currItem = inventory.get(currInvId);
+        this.inventory.put(2, i2);
+        
+        // set hand item
+        Item i3 = new Item(itemHandName);
+        this.handItem = i3;
         
     }
     
+    /**
+     * ItemIdSetter
+     */
+    public void setCurrInvId(){
+        this.currInvId++;
+    }
+
+    /**
+     * hand item setter
+     */
+    public void setHand(){
+        //removes the current hand item from the hand
+        //adds hand item to inventory
+        this.setCurrInvId();
+        
+        this.inventory.put(this.currInvId, this.getHand());
+        //adds current item to hand
+        this.handItem = this.currItem;
+    
+    }
+    
+    /**
+     * hand item getter
+     */
+    
+    public Item getHand(){
+        return handItem;
+    }
     /**
      * name getter
      */
@@ -88,7 +123,7 @@ public class Character
      * inventory getter
      */
     public HashMap<Integer, Item> getInv(){
-        //returns all inv items
+        //returns inventory HashMap
         return inventory;
     }
 }

@@ -22,7 +22,7 @@ public class CharCol
         characterCollection = new HashMap<Integer, Character>();
         
         //creates characters for collection
-        Character c1 = new Character("Nadja", 24, 15, 8, 25, "Greatsword");
+        Character c1 = new Character("Nadja", 24, 15, 8, 25, "Symbol of Urden", "Plate Armour", "Bell Greatsword");
         
         //puts character in collection
         this.characterCollection.put(1, c1);
