@@ -51,10 +51,27 @@ public class Character
         
     }
     
+      /**
+       * find a card based off the cards name.
+     * set the current instance card if found
+  
+     * @return true or false
+     */
+    public boolean findItem(String name) {
+      //search for the card
+      for (int itemId : inventory.keySet()) {
+        if (inventory.get(itemId).getName().toLowerCase().equals(name.toLowerCase())) {
+          this.currItem = inventory.get(itemId);
+          return true;
+        }
+      }
+      return false;
+    }
+    
     /**
      * ItemIdSetter
      */
-    public void setCurrInvId(){
+    public void setInvId(){
         this.currInvId++;
     }
 
@@ -63,13 +80,16 @@ public class Character
      */
     public void setHand(){
         //removes the current hand item from the hand
+        //removes current item from inventory
+        this.inventory.remove(this.currItem);
         //adds hand item to inventory
-        this.setCurrInvId();
+        this.setInvId();
         
         this.inventory.put(this.currInvId, this.getHand());
+        
         //adds current item to hand
         this.handItem = this.currItem;
-    
+        
     }
     
     /**

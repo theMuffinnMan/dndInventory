@@ -33,6 +33,8 @@ public class CharCol
         
     }
     
+    
+    
     /**
      * reuturns current character values.
      */
