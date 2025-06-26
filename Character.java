@@ -15,11 +15,11 @@ public class Character
     private int strength;
     private int intellegence;
     
-    private int gold;
+    private double gold;
     
     private HashMap<Integer, Item> inventory;
     private static final int MAX_INV_SIZE = 4;
-    private int currInvId;
+    private int currInvId = 2;
     private Item currItem;
     
     private Item handItem;
@@ -27,7 +27,7 @@ public class Character
     /**
      * Constructor for objects of class character
      */
-    public Character(String nm, int hp, int str, int intel, int gp, String item1Name, String item2Name, String itemHandName)
+    public Character(String nm, int hp, int str, int intel, double gp, String item1Name, String item2Name, String itemHandName)
     {
         // initialise instance variables
         name = nm;
@@ -79,17 +79,15 @@ public class Character
      * hand item setter
      */
     public void setHand(){
-        //removes the current hand item from the hand
-        //removes current item from inventory
-        this.inventory.remove(this.currItem);
-        //adds hand item to inventory
-        this.setInvId();
+        //remove current item from inventory
+        this.inventory.remove(this.currInvId);
         
+        //add hand to inventory
+        this.setInvId();
         this.inventory.put(this.currInvId, this.getHand());
         
-        //adds current item to hand
+        //set current item to hand
         this.handItem = this.currItem;
-        
     }
     
     /**
@@ -134,11 +132,34 @@ public class Character
     /**
      * gold getter
      */
-    public int getGold(){
+    public double getGold(){
         //returns gold value
         return gold;
     }
     
+    /**
+     * gold setter add
+     */
+    public void addGold(){
+        //add one gold
+        this.gold++;
+    }
+
+    /**
+     * gold setter minus
+     */
+    public void takeGold(){
+        //take one gold
+        this.gold--;
+    }
+    
+    /**
+     * gold setter
+     */
+    public void editGoldSl(double newGold){
+        this.gold = newGold;
+    }
+
     /**
      * inventory getter
      */

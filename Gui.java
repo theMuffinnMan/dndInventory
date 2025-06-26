@@ -19,11 +19,22 @@ public class Gui
         charCol = new CharCol();
         
         //Gui buttons
+        //view options
         UI.addButton("Veiw Stats1", this::veiwStats1);
         UI.addButton("Veiw Stats2", this::veiwStats2);
         UI.addButton("Veiw Stats3", this::veiwStats3);
         
+        //swap hand items
         UI.addButton("Swap Hand", this::swapHand);
+        
+        //gold edit options
+        UI.addButton("Add Gold", this::addGold);
+        UI.addButton("Take Gold", this::takeGold);
+        
+        UI.addSlider("Edit Gold", 0, 100, this::editGoldSl);
+        
+        UI.addButton("set Gold Inp", this::setGoldInp);
+        
     }
     
     /**
@@ -130,6 +141,41 @@ public class Gui
         }
     }
     
+    /**
+     * add gold button
+     */
+    public void addGold(){
+        UI.clearText();
+        this.charCol.getCharacter().addGold();
+        UI.println("Gold is now " + this.charCol.getCharacter().getGold());
+    }
+    
+    /**
+     * take gold button
+     */
+    public void takeGold(){
+        UI.clearText();
+        this.charCol.getCharacter().takeGold();
+        UI.println("Gold is now " + this.charCol.getCharacter().getGold());
+    }
+    
+    /** 
+     * edit gold with slider
+     */
+    public void editGoldSl(double gold){
+        this.charCol.getCharacter().editGoldSl(gold);
+    }
+    
+    /**
+     * set gold input
+     */
+    
+    public void setGoldInp(){
+        UI.clearText();
+        int gold = UI.askInt("set how much? ");
+        this.charCol.getCharacter().editGoldSl(gold);
+        UI.println("gold is " + this.charCol.getCharacter().getGold());
+    }
     /**
      * main function
      */
