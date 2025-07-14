@@ -31,10 +31,6 @@ public class Gui
         UI.addButton("Add Gold", this::addGold);
         UI.addButton("Take Gold", this::takeGold);
         
-        UI.addSlider("Edit Gold", 0, 100, this::editGoldSl);
-        
-        UI.addButton("set Gold Inp", this::setGoldInp);
-        
     }
     
     /**
@@ -159,23 +155,6 @@ public class Gui
         UI.println("Gold is now " + this.charCol.getCharacter().getGold());
     }
     
-    /** 
-     * edit gold with slider
-     */
-    public void editGoldSl(double gold){
-        this.charCol.getCharacter().editGoldSl(gold);
-    }
-    
-    /**
-     * set gold input
-     */
-    
-    public void setGoldInp(){
-        UI.clearText();
-        int gold = UI.askInt("set how much? ");
-        this.charCol.getCharacter().editGoldSl(gold);
-        UI.println("gold is " + this.charCol.getCharacter().getGold());
-    }
     /**
      * main function
      */

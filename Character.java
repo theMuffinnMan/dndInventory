@@ -39,14 +39,14 @@ public class Character
         //inventory 
         inventory = new HashMap<Integer, Item>();
         //item creation
-        Item i1 = new Item(item1Name);
-        Item i2 = new Item(item2Name);
+        Item i1 = new Item(item1Name, 1);
+        Item i2 = new Item(item2Name, 2);
         //place items into HashMap
         this.inventory.put(1, i1);
         this.inventory.put(2, i2);
         
         // set hand item
-        Item i3 = new Item(itemHandName);
+        Item i3 = new Item(itemHandName, 3);
         this.handItem = i3;
         
     }
@@ -67,24 +67,16 @@ public class Character
       }
       return false;
     }
-    
-    /**
-     * ItemIdSetter
-     */
-    public void setInvId(){
-        this.currInvId++;
-    }
 
     /**
      * hand item setter
      */
     public void setHand(){
         //remove current item from inventory
-        this.inventory.remove(this.currInvId);
+        this.inventory.remove(this.currItem.getId());
         
         //add hand to inventory
-        this.setInvId();
-        this.inventory.put(this.currInvId, this.getHand());
+        this.inventory.put(this.getHand().getId(), this.getHand());
         
         //set current item to hand
         this.handItem = this.currItem;
