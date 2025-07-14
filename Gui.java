@@ -151,8 +151,14 @@ public class Gui
      */
     public void takeGold(){
         UI.clearText();
-        this.charCol.getCharacter().takeGold();
-        UI.println("Gold is now " + this.charCol.getCharacter().getGold());
+        //check if gold is negative
+        if (this.charCol.getCharacter().getGold() <= 0 ) {
+            UI.println("Gold cannot go lower!");
+        }
+        else{
+            this.charCol.getCharacter().takeGold();
+            UI.println("Gold is now " + this.charCol.getCharacter().getGold());
+        }
     }
     
     /**
