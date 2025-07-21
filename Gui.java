@@ -1,5 +1,6 @@
 import ecs100.*;
 import java.util.HashMap;
+import java.awt.Color;
 /**
  * Display and user interaction.
  *
@@ -10,6 +11,8 @@ public class Gui
 {
     // instance variables - replace the example below with your own
     private CharCol charCol;
+    //colours
+    private Color beige = new Color(251, 234, 157);
     /**
      * Constructor for objects of class Gui
      */
@@ -18,7 +21,9 @@ public class Gui
         // initialise instance variables
         charCol = new CharCol();
         
-        //Gui buttons
+        //Gui
+        //mouse interactions
+        UI.setMouseListener(this::doMouse);
         //view options
         UI.addButton("Veiw Stats1", this::veiwStats1);
         UI.addButton("Veiw Stats2", this::veiwStats2);
@@ -31,6 +36,50 @@ public class Gui
         UI.addButton("Add Gold", this::addGold);
         UI.addButton("Take Gold", this::takeGold);
         
+
+        this.draw();
+    }
+    
+    /**
+     * draw screen
+     */
+    public void draw(){
+        // clear screen
+        UI.clearGraphics();
+        // background
+        UI.setColor(beige);
+        UI.fillRect(0,0, 700, 700);
+        // character
+        UI.setColor(Color.white);
+        UI.fillRect(100,30,200,350);
+        // inventory
+        UI.fillRect(410, 125, 50, 50);
+        UI.fillRect(410, 185, 50, 50);
+        UI.fillRect(470, 125, 50, 50);
+        UI.fillRect(470, 185, 50, 50);
+        // hand item
+        UI.fillRect(330,155, 50, 50);
+        //Stats
+        UI.fillRect(10,90,80,50);
+        UI.fillRect(10,165,80,50);
+        UI.fillRect(10,240,80,50);
+        // gold
+        UI.fillRect(410, 30, 110, 30);
+        
+    }
+    
+    /**
+     * doMouse
+     * all clickable areas
+     */
+    public void doMouse(String action, double mouseX, double mouseY){
+        //Gold up button
+        //Gold down button
+        //item 1
+        //item 2
+        //item 3
+        //item 4
+        //hand item
     }
     
     /**
