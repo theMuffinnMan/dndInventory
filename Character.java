@@ -150,8 +150,11 @@ public class Character
      * gold setter minus
      */
     public void takeGold(){
-        //take one gold
-        this.gold--;
+        //check if gold is 0 or lower
+        if(this.gold >= 1){
+            //take one gold
+            this.gold--;
+        }
     }
     
     /**

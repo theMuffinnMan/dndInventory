@@ -32,11 +32,6 @@ public class Gui
         //swap hand items
         UI.addButton("Swap Hand", this::swapHand);
         
-        //gold edit options
-        UI.addButton("Add Gold", this::addGold);
-        UI.addButton("Take Gold", this::takeGold);
-        
-
         this.draw();
     }
     
@@ -128,7 +123,14 @@ public class Gui
      * all clickable areas
      */
     public void doMouse(String action, double mouseX, double mouseY){
-        //Gold up button
+        if(action.equals("clicked") && mouseX > 505 && mouseX < 515 && mouseY > 35 && mouseY < 45){
+            //Gold up button 
+            this.charCol.getCharacter().addGold();
+            this.draw();
+        }else if(action.equals("clicked") && mouseX > 505 && mouseX < 515 && mouseY > 50 && mouseY < 60){
+            this.charCol.getCharacter().takeGold();
+            this.draw();
+        }
         //Gold down button
         //item 1
         //item 2
@@ -238,30 +240,6 @@ public class Gui
 
         } else {
           UI.println("This character doesnt have that item!");
-        }
-    }
-    
-    /**
-     * add gold button
-     */
-    public void addGold(){
-        UI.clearText();
-        this.charCol.getCharacter().addGold();
-        UI.println("Gold is now " + this.charCol.getCharacter().getGold());
-    }
-    
-    /**
-     * take gold button
-     */
-    public void takeGold(){
-        UI.clearText();
-        //check if gold is negative
-        if (this.charCol.getCharacter().getGold() <= 0 ) {
-            UI.println("Gold cannot go lower!");
-        }
-        else{
-            this.charCol.getCharacter().takeGold();
-            UI.println("Gold is now " + this.charCol.getCharacter().getGold());
         }
     }
     
