@@ -49,23 +49,78 @@ public class Gui
         // background
         UI.setColor(beige);
         UI.fillRect(0,0, 700, 700);
+        
         // character
         UI.setColor(Color.white);
         UI.fillRect(100,30,200,350);
+        UI.drawImage(this.charCol.getCharacter().getImage(), 105, 35, 190, 340);
+        
         // inventory
+        //item 1
         UI.fillRect(410, 125, 50, 50);
-        UI.fillRect(410, 185, 50, 50);
+        //item 2
         UI.fillRect(470, 125, 50, 50);
+        //item 3
+        UI.fillRect(410, 185, 50, 50);
+        //item 4
         UI.fillRect(470, 185, 50, 50);
+        //item images
+        UI.setColor(Color.black);
+        this.invImg();
+        UI.setColor(Color.white);
         // hand item
         UI.fillRect(330,155, 50, 50);
+        UI.drawImage(this.charCol.getCharacter().getHand().getImage(), 335, 160, 40, 40);
+        
         //Stats
         UI.fillRect(10,90,80,50);
         UI.fillRect(10,165,80,50);
         UI.fillRect(10,240,80,50);
         // gold
-        UI.fillRect(410, 30, 110, 30);
+        UI.fillRect(410, 30, 110, 35);
+        //gold up
+        UI.setColor(Color.green);
+        UI.fillRect(505, 35, 10, 10);
+        //gold down
+        UI.setColor(Color.red);
+        UI.fillRect(505, 50, 10, 10);
         
+        //words
+        UI.setFontSize(22);
+        UI.setColor(Color.black);
+        //stats
+        UI.drawString("HP: " + this.charCol.getCharacter().getHp(), 15, 125);
+        UI.drawString("STR: " + this.charCol.getCharacter().getStrength(), 15, 200);
+        UI.drawString("INT: " + this.charCol.getCharacter().getIntel(), 15, 275);
+        
+        //gold
+        UI.drawString("Gold: " + this.charCol.getCharacter().getGold(), 415, 60);
+        
+        //name
+        UI.drawString(this.charCol.getCharacter().getName(), 100, 410);
+    }
+    
+    /**
+     * draw inventory images
+     */
+    public void invImg(){
+        //loop through inventory hashmap
+        // prints in diff place depending on i value
+        for ( int i: charCol.getCharacter().getInv().keySet()){
+            if(i==1) {
+                //Position 1
+                UI.drawImage(this.charCol.getCharacter().getInv().get(i).getImage(), 415, 130, 40, 40);
+            }else if(i==2){
+                //Position 2
+                UI.drawImage(this.charCol.getCharacter().getInv().get(i).getImage(), 475, 130, 40, 40);
+            }else if(i==3){
+                //Position 3
+                UI.drawImage(this.charCol.getCharacter().getInv().get(i).getImage(), 415, 190, 40, 40);
+            }else{
+                //Position 4
+                UI.drawImage(this.charCol.getCharacter().getInv().get(i).getImage(), 475, 190, 40, 40);
+            }
+        }
     }
     
     /**

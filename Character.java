@@ -11,11 +11,12 @@ public class Character
 {
     // instance variables - replace the example below with your own
     private String name;
+    private String image;
     private int health;
     private int strength;
     private int intellegence;
     
-    private double gold;
+    private int gold;
     
     private HashMap<Integer, Item> inventory;
     private static final int MAX_INV_SIZE = 4;
@@ -27,10 +28,12 @@ public class Character
     /**
      * Constructor for objects of class character
      */
-    public Character(String nm, int hp, int str, int intel, double gp, String item1Name, String item2Name, String itemHandName)
+    public Character(String nm, String img, int hp, int str, int intel, int gp, 
+                    String item1Name, String item1Img, String item2Name, String item2Img, String itemHandName, String item3Img)
     {
         // initialise instance variables
         name = nm;
+        image = img;
         health = hp;
         strength = str;
         intellegence = intel;
@@ -39,14 +42,14 @@ public class Character
         //inventory 
         inventory = new HashMap<Integer, Item>();
         //item creation
-        Item i1 = new Item(item1Name, 1);
-        Item i2 = new Item(item2Name, 2);
+        Item i1 = new Item(item1Name, item1Img, 1);
+        Item i2 = new Item(item2Name, item2Img, 2);
         //place items into HashMap
         this.inventory.put(1, i1);
         this.inventory.put(2, i2);
         
         // set hand item
-        Item i3 = new Item(itemHandName, 3);
+        Item i3 = new Item(itemHandName, item3Img, 3);
         this.handItem = i3;
         
     }
@@ -96,7 +99,13 @@ public class Character
         //returns gold value
         return name;
     }
-    
+    /**
+     * image getter
+     */
+    public String getImage(){
+        //returns image file name
+        return image;
+    }
     /**
      * health getter
      */
@@ -124,7 +133,7 @@ public class Character
     /**
      * gold getter
      */
-    public double getGold(){
+    public int getGold(){
         //returns gold value
         return gold;
     }
@@ -148,7 +157,7 @@ public class Character
     /**
      * gold setter
      */
-    public void editGoldSl(double newGold){
+    public void editGoldSl(int newGold){
         this.gold = newGold;
     }
 

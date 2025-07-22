@@ -10,15 +10,17 @@ public class Item
 {
     // instance variables - replace the example below with your own
     private String name;
+    private String image;
     private int id;
 
     /**
      * Constructor for objects of class Item
      */
-    public Item(String nm, int key)
+    public Item(String nm, String img, int key)
     {
         // initialise instance variables
         name = nm;
+        image = img;
         id = key;
     }
     
@@ -28,6 +30,13 @@ public class Item
     public String getName(){
         //returns items name
         return name;
+    }
+    /**
+     * image getter
+     */
+    public String getImage(){
+        //returns image file name
+        return image;
     }
     
     /**
