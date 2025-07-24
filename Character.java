@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import java.util.ArrayList;
 import ecs100.*;
 /**
  * Instance of a character.
@@ -18,7 +19,7 @@ public class Character
     
     private int gold;
     
-    private HashMap<Integer, Item> inventory;
+    private ArrayList<Item> inventory;
     private static final int MAX_INV_SIZE = 4;
     private int currInvId = 2;
     private Item currItem;
@@ -40,13 +41,13 @@ public class Character
         gold = gp;
         
         //inventory 
-        inventory = new HashMap<Integer, Item>();
+        inventory = new ArrayList< Item>();
         //item creation
         Item i1 = new Item(item1Name, item1Img, 1);
         Item i2 = new Item(item2Name, item2Img, 2);
         //place items into HashMap
-        this.inventory.put(1, i1);
-        this.inventory.put(2, i2);
+        this.inventory.add(i1);
+        this.inventory.add(i2);
         
         // set hand item
         Item i3 = new Item(itemHandName, item3Img, 3);
@@ -60,10 +61,10 @@ public class Character
   
      * @return true or false
      */
-    public boolean findItem(String name) {
-      //search for the card
-      for (int itemId : inventory.keySet()) {
-        if (inventory.get(itemId).getName().toLowerCase().equals(name.toLowerCase())) {
+    public boolean findItem(int key) {
+      //search for the item
+      for (int itemId = 0; itemId < inventory.size(); itemId++) {
+        if (inventory.get(itemId).equals(key)) {
           this.currItem = inventory.get(itemId);
           return true;
         }
@@ -74,15 +75,12 @@ public class Character
     /**
      * hand item setter
      */
-    public void setHand(){
+    public void setHand(int key, Item swapItem){
         //remove current item from inventory
-        this.inventory.remove(this.currItem.getId());
-        
-        //add hand to inventory
-        this.inventory.put(this.getHand().getId(), this.getHand());
+        this.inventory.set(key, this.handItem);
         
         //set current item to hand
-        this.handItem = this.currItem;
+        this.handItem = swapItem;
     }
     
     /**
@@ -167,7 +165,7 @@ public class Character
     /**
      * inventory getter
      */
-    public HashMap<Integer, Item> getInv(){
+    public ArrayList< Item> getInv(){
         //returns inventory HashMap
         return inventory;
     }

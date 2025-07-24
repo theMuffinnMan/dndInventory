@@ -24,14 +24,7 @@ public class Gui
         //Gui
         //mouse interactions
         UI.setMouseListener(this::doMouse);
-        //view options
-        UI.addButton("Veiw Stats1", this::veiwStats1);
-        UI.addButton("Veiw Stats2", this::veiwStats2);
-        UI.addButton("Veiw Stats3", this::veiwStats3);
-        
-        //swap hand items
-        UI.addButton("Swap Hand", this::swapHand);
-        
+
         this.draw();
     }
     
@@ -43,7 +36,7 @@ public class Gui
         UI.clearGraphics();
         // background
         UI.setColor(beige);
-        UI.fillRect(0,0, 700, 700);
+        UI.fillRect(0,0, 1000, 1000);
         
         // character
         UI.setColor(Color.white);
@@ -101,14 +94,14 @@ public class Gui
     public void invImg(){
         //loop through inventory hashmap
         // prints in diff place depending on i value
-        for ( int i: charCol.getCharacter().getInv().keySet()){
-            if(i==1) {
+        for ( int i = 0; i < charCol.getCharacter().getInv().size(); i++){
+            if(i==0) {
                 //Position 1
                 UI.drawImage(this.charCol.getCharacter().getInv().get(i).getImage(), 415, 130, 40, 40);
-            }else if(i==2){
+            }else if(i==1){
                 //Position 2
                 UI.drawImage(this.charCol.getCharacter().getInv().get(i).getImage(), 475, 130, 40, 40);
-            }else if(i==3){
+            }else if(i==2){
                 //Position 3
                 UI.drawImage(this.charCol.getCharacter().getInv().get(i).getImage(), 415, 190, 40, 40);
             }else{
@@ -123,126 +116,47 @@ public class Gui
      * all clickable areas
      */
     public void doMouse(String action, double mouseX, double mouseY){
-        if(action.equals("clicked") && mouseX > 505 && mouseX < 515 && mouseY > 35 && mouseY < 45){
-            //Gold up button 
-            this.charCol.getCharacter().addGold();
+        try{
+            if(action.equals("clicked") && mouseX > 505 && mouseX < 515 && mouseY > 35 && mouseY < 45){
+                //Gold up button 
+                this.charCol.getCharacter().addGold();
+            }else if(action.equals("clicked") && mouseX > 505 && mouseX < 515 && mouseY > 50 && mouseY < 60){
+                //Gold down button
+                this.charCol.getCharacter().takeGold();
+            }
+            //checks mouse is in right place, and for highlight.
+            else if(action.equals("clicked") && mouseX > 410 && mouseX < 460 && mouseY > 125 && mouseY < 175){
+                //item 1
+                //swap item with hand item
+                this.charCol.getCharacter().setHand(0, this.charCol.getCharacter().getInv().get(0));
+            }
+            else if(action.equals("clicked") && mouseX > 470 && mouseX < 520 && mouseY > 125 && mouseY < 175){
+                //item 2 475, 130, 40, 40
+                //swap item with hand item
+                this.charCol.getCharacter().setHand(1, this.charCol.getCharacter().getInv().get(1));
+            }
+            else if(action.equals("clicked") && mouseX > 410 && mouseX < 460 && mouseY > 185 && mouseY < 235){
+                //item 3 415, 190, 40, 40
+                //swap item with hand item
+                this.charCol.getCharacter().setHand(2, this.charCol.getCharacter().getInv().get(2));
+            }
+            else if(action.equals("clicked") && mouseX > 470 && mouseX < 520 && mouseY > 185 && mouseY < 235){
+                //item 4 475, 190, 40, 40
+                //swap item with hand item
+                this.charCol.getCharacter().setHand(3, this.charCol.getCharacter().getInv().get(3));
+            }
             this.draw();
-        }else if(action.equals("clicked") && mouseX > 505 && mouseX < 515 && mouseY > 50 && mouseY < 60){
-            this.charCol.getCharacter().takeGold();
-            this.draw();
+            
+        
+            //item 3
+            //item 4
+            //hand item
         }
-        //Gold down button
-        //item 1
-        //item 2
-        //item 3
-        //item 4
-        //hand item
-    }
-    
-    /**
-     * prints cahracter stats in text pane
-     */
-    public void veiwStats1() {
-        // prints current characters stats in the text pane.
-        UI.clearText();
-        //prints name, health, strength, and intellegence
-        UI.println("Name: " + charCol.getCharacter().getName());
-        UI.println("Health: " + charCol.getCharacter().getHp());
-        UI.println("Strength: " + charCol.getCharacter().getStrength());
-        UI.println("Intellegence: " + charCol.getCharacter().getIntel());
-        UI.println("Gold: " + charCol.getCharacter().getGold());
-        
-        //print hand
-        UI.println("Hand Item: " + charCol.getCharacter().getHand().getName());
-        
-        //print inventory
-        //loop through each item and print item
-        UI.print("Inventory: ");
-        for ( int i: charCol.getCharacter().getInv().keySet()){
-            UI.print(charCol.getCharacter().getInv().get(i).getName());
-            if ( i < charCol.getCharacter().getInv().size()){
-                UI.print(", ");
-            }
+        catch(Exception e){
+            //do nothing
         }
     }
-    
-    /**
-     * prints cahracter stats in text pane displays inventroy before stats
-     */
-    public void veiwStats2() {
-        // prints current characters stats in the text pane.
-        //clears textpane
-        UI.clearText();
-        UI.println("Name: " + charCol.getCharacter().getName());
-        
-        //print hand
-        UI.println("Hand Item: " + charCol.getCharacter().getHand().getName());
-        
-        //print inventory
-        //loop through each item and print item
-        UI.print("Inventory: ");
-        for ( int i: charCol.getCharacter().getInv().keySet()){
-            UI.print(charCol.getCharacter().getInv().get(i).getName());
-            if ( i < charCol.getCharacter().getInv().size()){
-                UI.print(", ");
-            }
-        }
-        //prints name, health, strength, and intellegence
-        UI.println();
-        UI.println("Health: " + charCol.getCharacter().getHp());
-        UI.println("Strength: " + charCol.getCharacter().getStrength());
-        UI.println("Intellegence: " + charCol.getCharacter().getIntel());
-        UI.println("Gold: " + charCol.getCharacter().getGold());
-    }
-    
-    /**
-     * prints cahracter stats in text pane
-     */
-    public void veiwStats3() {
-        // prints current characters stats in the text pane.
-        UI.clearText();
-        //prints name, health, strength, and intellegence
-        UI.println("Name: " + charCol.getCharacter().getName());
-        UI.println("Gold: " + charCol.getCharacter().getGold());
-        UI.println("Health: " + charCol.getCharacter().getHp());
-        UI.println("Strength: " + charCol.getCharacter().getStrength());
-        UI.println("Intellegence: " + charCol.getCharacter().getIntel());
-        
-        //print hand
-        UI.println("Hand Item: " + charCol.getCharacter().getHand().getName());
-        
-        //print inventory
-        //loop through each item and print item
-        UI.print("Inventory: ");
-        for ( int i: charCol.getCharacter().getInv().keySet()){
-            UI.print(charCol.getCharacter().getInv().get(i).getName());
-            if ( i < charCol.getCharacter().getInv().size()){
-                UI.print(", ");
-            }
-        }
-    }
-    
-    /**
-     * chose inventory item to swap with hand item
-     */
-    public void swapHand() {
-        UI.clearText();
-        //find item that will be swapped
-        // allows user to enter the name of a card
-        String cardName = UI.askString("Which Item do you want to swap?: ");
-        // search for card
-        if (this.charCol.getCharacter().findItem(cardName.toLowerCase().trim())) {
-          // tell the user the item is found
-          UI.println("Item swapped!");
-          
-          //swap items
-          this.charCol.getCharacter().setHand();
-
-        } else {
-          UI.println("This character doesnt have that item!");
-        }
-    }
-    
+     
     /**
      * main function
      */
