@@ -12,7 +12,16 @@ public class Gui
     // instance variables - replace the example below with your own
     private CharCol charCol;
     //colours
-    private Color beige = new Color(251, 234, 157);
+    private Color myGold = new Color(245, 196, 61);
+    private Color offWhite = new Color(251, 255, 235);
+    private Color myBrown = new Color(140, 132, 84);
+    
+    //display sizes
+    private final double ITEM_SIDE = 50;
+    private final double ITEM_X = 410;
+    private final double ITEM_Y = 125;
+    
+    
     /**
      * Constructor for objects of class Gui
      */
@@ -35,43 +44,68 @@ public class Gui
         // clear screen
         UI.clearGraphics();
         // background
-        UI.setColor(beige);
-        UI.fillRect(0,0, 1000, 1000);
+        UI.setColor(offWhite);
+        UI.fillRect(0,0, 550, 480);
+
+        UI.setFontSize(50);
+        UI.setColor(Color.black);
+        UI.drawRect(0,0, 550, 480);
         
         // character
-        UI.setColor(Color.white);
-        UI.fillRect(100,30,200,350);
-        UI.drawImage(this.charCol.getCharacter().getImage(), 105, 35, 190, 340);
+        UI.setColor(offWhite);
+        UI.fillRect(110,30,200,350);
+        UI.setColor(Color.black);
+        UI.drawRect(110,30,200,350);
+        UI.drawImage(this.charCol.getCharacter().getImage(), 115, 35, 190, 340);
         
         // inventory
-        //item 1
-        UI.fillRect(410, 125, 50, 50);
-        //item 2
-        UI.fillRect(470, 125, 50, 50);
-        //item 3
-        UI.fillRect(410, 185, 50, 50);
-        //item 4
-        UI.fillRect(470, 185, 50, 50);
+        for(int i = 0; i < 3; i++){
+            UI.setColor(offWhite);
+            UI.fillRect(ITEM_X, ITEM_Y + i * (ITEM_SIDE + 5), ITEM_SIDE, ITEM_SIDE);
+            UI.setColor(Color.black);
+            UI.drawRect(ITEM_X, ITEM_Y + i * (ITEM_SIDE + 5), ITEM_SIDE, ITEM_SIDE);
+        }
+        
         //item images
         UI.setColor(Color.black);
         this.invImg();
-        UI.setColor(Color.white);
+        UI.setColor(offWhite);
         // hand item
-        UI.fillRect(330,155, 50, 50);
-        UI.drawImage(this.charCol.getCharacter().getHand().getImage(), 335, 160, 40, 40);
+        UI.fillRect(330,155, ITEM_SIDE, ITEM_SIDE);
+        UI.setColor(Color.black);
+        UI.drawRect(330,155, ITEM_SIDE, ITEM_SIDE);
+        UI.drawImage(this.charCol.getCharacter().getHand().getImage(), 335, 160, ITEM_SIDE - 10, ITEM_SIDE - 10);
         
         //Stats
-        UI.fillRect(10,90,80,50);
-        UI.fillRect(10,165,80,50);
-        UI.fillRect(10,240,80,50);
+        UI.setColor(offWhite);
+        UI.fillRect(10,90,90,ITEM_SIDE);
+        UI.fillRect(10,165,90,ITEM_SIDE);
+        UI.fillRect(10,240,90,ITEM_SIDE);
+        UI.setColor(Color.black);
+        UI.drawRect(10,90,90,ITEM_SIDE);
+        UI.drawRect(10,165,90,ITEM_SIDE);
+        UI.drawRect(10,240,90,ITEM_SIDE);
         // gold
+        UI.setColor(offWhite);
         UI.fillRect(410, 30, 110, 35);
+        UI.setColor(Color.black);
+        UI.drawRect(410, 30, 110, 35);
         //gold up
         UI.setColor(Color.green);
         UI.fillRect(505, 35, 10, 10);
+        UI.setColor(Color.black);
+        UI.drawRect(505, 35, 10, 10);
         //gold down
         UI.setColor(Color.red);
         UI.fillRect(505, 50, 10, 10);
+        UI.setColor(Color.black);
+        UI.drawRect(505, 50, 10, 10);
+        
+        //name
+        UI.setColor(offWhite);
+        UI.fillRect(110, 385, 100, 30);
+        UI.setColor(Color.black);
+        UI.drawRect(110, 385, 100, 30);
         
         //words
         UI.setFontSize(22);
@@ -85,29 +119,17 @@ public class Gui
         UI.drawString("Gold: " + this.charCol.getCharacter().getGold(), 415, 60);
         
         //name
-        UI.drawString(this.charCol.getCharacter().getName(), 100, 410);
+        UI.drawString(this.charCol.getCharacter().getName(), 110, 410);
     }
     
     /**
      * draw inventory images
      */
     public void invImg(){
-        //loop through inventory hashmap
+        //loop through inventory arraylist
         // prints in diff place depending on i value
         for ( int i = 0; i < charCol.getCharacter().getInv().size(); i++){
-            if(i==0) {
-                //Position 1
-                UI.drawImage(this.charCol.getCharacter().getInv().get(i).getImage(), 415, 130, 40, 40);
-            }else if(i==1){
-                //Position 2
-                UI.drawImage(this.charCol.getCharacter().getInv().get(i).getImage(), 475, 130, 40, 40);
-            }else if(i==2){
-                //Position 3
-                UI.drawImage(this.charCol.getCharacter().getInv().get(i).getImage(), 415, 190, 40, 40);
-            }else{
-                //Position 4
-                UI.drawImage(this.charCol.getCharacter().getInv().get(i).getImage(), 475, 190, 40, 40);
-            }
+          UI.drawImage(this.charCol.getCharacter().getInv().get(i).getImage(), ITEM_X + 5, ITEM_Y + 5 + (i * (ITEM_SIDE + 5)), ITEM_SIDE - 10, ITEM_SIDE - 10);
         }
     }
     
@@ -125,25 +147,22 @@ public class Gui
                 this.charCol.getCharacter().takeGold();
             }
             //checks mouse is in right place, and for highlight.
-            else if(action.equals("clicked") && mouseX > 410 && mouseX < 460 && mouseY > 125 && mouseY < 175){
+            else if(action.equals("clicked") && mouseX > ITEM_X && mouseX < ITEM_X + ITEM_SIDE && mouseY > ITEM_Y && mouseY < ITEM_Y + ITEM_SIDE){
                 //item 1
                 //swap item with hand item
                 this.charCol.getCharacter().setHand(0, this.charCol.getCharacter().getInv().get(0));
             }
-            else if(action.equals("clicked") && mouseX > 470 && mouseX < 520 && mouseY > 125 && mouseY < 175){
+            else if(action.equals("clicked") && mouseX > ITEM_X && mouseX < ITEM_X + ITEM_SIDE && 
+                    mouseY > ITEM_Y + ITEM_SIDE + 5 && mouseY < ITEM_Y + (2 * ITEM_SIDE) + 5){
                 //item 2 475, 130, 40, 40
                 //swap item with hand item
                 this.charCol.getCharacter().setHand(1, this.charCol.getCharacter().getInv().get(1));
             }
-            else if(action.equals("clicked") && mouseX > 410 && mouseX < 460 && mouseY > 185 && mouseY < 235){
+            else if(action.equals("clicked") && mouseX > ITEM_X && mouseX < ITEM_X + ITEM_SIDE && 
+                    mouseY > ITEM_Y + 2 * (ITEM_SIDE + 5) && mouseY < ITEM_Y + 2*(ITEM_SIDE + 5) + ITEM_SIDE) {
                 //item 3 415, 190, 40, 40
                 //swap item with hand item
                 this.charCol.getCharacter().setHand(2, this.charCol.getCharacter().getInv().get(2));
-            }
-            else if(action.equals("clicked") && mouseX > 470 && mouseX < 520 && mouseY > 185 && mouseY < 235){
-                //item 4 475, 190, 40, 40
-                //swap item with hand item
-                this.charCol.getCharacter().setHand(3, this.charCol.getCharacter().getInv().get(3));
             }
             this.draw();
             
