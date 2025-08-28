@@ -16,6 +16,10 @@ public class Gui
     private Color offWhite = new Color(251, 255, 235);
     private Color myBrown = new Color(140, 132, 84);
     
+    
+    private String boxText1 = null;
+    private String boxText2 = null;
+    
     //display sizes
     private final double ITEM_SIDE = 50;
     private final double ITEM_X = 450;
@@ -39,6 +43,8 @@ public class Gui
         //Gui
         //mouse interactions
         UI.setMouseListener(this::doMouse);
+        UI.addButton("Nadja", this::charNadja);
+        UI.addButton("Mika", this::charMika);
 
         this.draw();
     }
@@ -74,8 +80,11 @@ public class Gui
         this.invImg();
         UI.setColor(offWhite);
         // hand item
-        this.drawBox(330,ITEM_Y + 55, ITEM_SIDE, ITEM_SIDE);
-        UI.drawImage(this.charCol.getCharacter().getHand().getImage(), 335, ITEM_Y + 60, ITEM_SIDE - 10, ITEM_SIDE - 10);
+        this.drawBox(GOLD_X,ITEM_Y + 55, ITEM_SIDE * 2, ITEM_SIDE * 2);
+        UI.drawImage(this.charCol.getCharacter().getHand().getImage(), 335, ITEM_Y + 60, ITEM_SIDE * 2 - 10, ITEM_SIDE * 2 - 10);
+        
+        //text box under inventory
+        this.drawBox(GOLD_X, 230, 170, ITEM_SIDE * 2);
         
         //Stats
         for( int i = 0; i < 3; i++){
@@ -96,7 +105,7 @@ public class Gui
         UI.drawRect(this.GOLD_X + 95, this.ITEM_Y + 20, 10, 10);
         
         //name
-        this.drawBox(110, 385, 100, 30);
+        this.drawBox(110, 385, 200, 30);
         
         //words
         UI.setFontSize(22);
@@ -110,7 +119,41 @@ public class Gui
         UI.drawString("Gold: " + this.charCol.getCharacter().getGold(), (this.GOLD_X + 5), (this.ITEM_Y + 30));
         
         //name
-        UI.drawString(this.charCol.getCharacter().getName(), 110, 410);
+        UI.drawString("Name: " + this.charCol.getCharacter().getName(), 110, 410);
+        
+        //text box
+        try{
+            UI.drawString(boxText1, GOLD_X + 10, 270);
+        } 
+        catch(Exception e){
+            //do nothing
+        }
+        try{
+            UI.drawString(boxText2, GOLD_X + 10, 310);
+        } 
+        catch(Exception e){
+            //do nothing
+        }
+    }
+    
+    /**
+     * swtiches character to najda
+     */
+    public void charNadja(){
+        this.charCol.swapCharacter(1);
+        this.boxText1 = null;
+        this.boxText2 = null;
+        this.draw();
+    }
+    
+    /**
+     * swtiches character to mika
+     */
+    public void charMika(){
+        this.charCol.swapCharacter(2);
+        this.boxText1 = null;
+        this.boxText2 = null;
+        this.draw();
     }
     
     /**
@@ -133,7 +176,7 @@ public class Gui
           UI.drawImage(this.charCol.getCharacter().getInv().get(i).getImage(), ITEM_X + 5, ITEM_Y + 5 + (i * (ITEM_SIDE + 5)), ITEM_SIDE - 10, ITEM_SIDE - 10);
         }
     }
-        
+    
     /**
      * doMouse
      * all clickable areas
@@ -150,26 +193,78 @@ public class Gui
             //checks mouse is in right place, and for highlight.
             else if(action.equals("clicked") && mouseX > ITEM_X && mouseX < ITEM_X + ITEM_SIDE && mouseY > ITEM_Y && mouseY < ITEM_Y + ITEM_SIDE){
                 //item 1
+                //item text
+                this.boxText1 = this.charCol.getCharacter().getInv().get(0).getName();
+                this.boxText2 = null;
                 //swap item with hand item
                 this.charCol.getCharacter().setHand(0, this.charCol.getCharacter().getInv().get(0));
             }
             else if(action.equals("clicked") && mouseX > ITEM_X && mouseX < ITEM_X + ITEM_SIDE && 
                     mouseY > ITEM_Y + ITEM_SIDE + 5 && mouseY < ITEM_Y + (2 * ITEM_SIDE) + 5){
                 //item 2 475, 130, 40, 40
+                //item text
+                this.boxText1 = this.charCol.getCharacter().getInv().get(1).getName();
+                this.boxText2 = null;
                 //swap item with hand item
                 this.charCol.getCharacter().setHand(1, this.charCol.getCharacter().getInv().get(1));
             }
             else if(action.equals("clicked") && mouseX > ITEM_X && mouseX < ITEM_X + ITEM_SIDE && 
                     mouseY > ITEM_Y + 2 * (ITEM_SIDE + 5) && mouseY < ITEM_Y + 2*(ITEM_SIDE + 5) + ITEM_SIDE) {
                 //item 3 415, 190, 40, 40
+                //item text
+                this.boxText1 = this.charCol.getCharacter().getInv().get(2).getName();
+                this.boxText2 = null;
                 //swap item with hand item
                 this.charCol.getCharacter().setHand(2, this.charCol.getCharacter().getInv().get(2));
+            }
+            //hand item
+            else if(action.equals("clicked") && mouseX > GOLD_X && mouseX < GOLD_X + ITEM_SIDE * 2 && 
+                    mouseY > ITEM_Y + 55 && mouseY < ITEM_Y + 55 + ITEM_SIDE * 2){
+                    //draw text in item box when clicked on
+                    //GOLD_X,ITEM_Y + 55, ITEM_SIDE * 2, ITEM_SIDE * 2
+                    this.boxText1 = this.charCol.getCharacter().getHand().getName();
+                    this.boxText2 = null;
+            }
+            
+            //stat clickables
+            //hp
+            else if(action.equals("clicked") && mouseX > 10 && mouseX < 90 && 
+                    mouseY > ITEM_Y && mouseY < ITEM_Y + ITEM_SIDE){
+                    //draw text in item box when clicked on
+                    this.boxText1 = "Hit Points!";
+                    this.boxText2 = "How healthly you are!";
+            }
+            //stregnth
+            else if(action.equals("clicked") && mouseX > 10 && mouseX < 90 && 
+                    mouseY > ITEM_Y + 115 && mouseY < ITEM_Y + ITEM_SIDE + 115){
+                    //draw text in item box when clicked on
+                    this.boxText1 = "Strength!";
+                    this.boxText2 = "How strong you are!";
+            }
+            //intellegence
+            else if(action.equals("clicked") && mouseX > 10 && mouseX < 90 && 
+                    mouseY > ITEM_Y +(115 * 2) && mouseY < ITEM_Y +(115 * 2) + ITEM_SIDE){
+                    //draw text in item box when clicked on
+                    this.boxText1 = "Intellegence!";
+                    this.boxText2 = "How smart you are!";
+            }
+            //gold
+            else if(action.equals("clicked") && mouseX > GOLD_X && mouseX < GOLD_X + 110 && 
+                    mouseY > ITEM_Y && mouseY < ITEM_Y + 35){
+                    //draw text in item box when clicked on
+                    this.boxText1 = "Gold!";
+                    this.boxText2 = "How much money you have!";
+            }
+            //name and picture
+            else if(action.equals("clicked") && mouseX > 110 && mouseX < 310 && 
+                    mouseY > 30 && mouseY < 415){
+                    //draw text in item box when clicked on
+                    this.boxText1 = this.charCol.getCharacter().getName();
+                    this.boxText2 = "That's you!";
             }
             this.draw();
             
         
-            //item 3
-            //item 4
             //hand item
         }
         catch(Exception e){
