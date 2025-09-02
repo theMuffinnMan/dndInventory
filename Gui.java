@@ -64,7 +64,7 @@ public class Gui
         UI.drawRect(0,0, 600, 480);
         
         // character
-        this.drawBox(110, 30, 200, 350);
+        this.drawBox(110, 30, 200, 350, Color.black);
         UI.drawImage(this.charCol.getCharacter().getImage(), 115, 35, 190, 340);
         
         // inventory
@@ -80,19 +80,19 @@ public class Gui
         this.invImg();
         UI.setColor(offWhite);
         // hand item
-        this.drawBox(GOLD_X,ITEM_Y + 55, ITEM_SIDE * 2, ITEM_SIDE * 2);
+        this.drawBox(GOLD_X,ITEM_Y + 55, ITEM_SIDE * 2, ITEM_SIDE * 2, Color.black);
         UI.drawImage(this.charCol.getCharacter().getHand().getImage(), 335, ITEM_Y + 60, ITEM_SIDE * 2 - 10, ITEM_SIDE * 2 - 10);
         
         //text box under inventory
-        this.drawBox(GOLD_X, 230, 230, ITEM_SIDE * 2);
+        this.drawBox(GOLD_X, 230, 230, ITEM_SIDE * 2, Color.black);
         
         //Stats
         for( int i = 0; i < 3; i++){
-            this.drawBox(10, ITEM_Y +(115 * i), 90, ITEM_SIDE);
+            this.drawBox(10, ITEM_Y +(115 * i), 90, ITEM_SIDE, Color.black);
         }
 
         // gold
-        this.drawBox(this.GOLD_X, this.ITEM_Y, 110, 35);
+        this.drawBox(this.GOLD_X, this.ITEM_Y, 110, 35, Color.black);
         //gold up
         UI.setColor(Color.green);
         UI.fillRect(this.GOLD_X + 95, this.ITEM_Y + 5, 10, 10);
@@ -105,7 +105,7 @@ public class Gui
         UI.drawRect(this.GOLD_X + 95, this.ITEM_Y + 20, 10, 10);
         
         //name
-        this.drawBox(110, 385, 200, 30);
+        this.drawBox(110, 385, 200, 30, Color.black);
         
         //words
         UI.setFontSize(22);
@@ -134,6 +134,14 @@ public class Gui
         catch(Exception e){
             //do nothing
         }
+        
+        //inventory highlights
+        try{
+            this.drawHighlight();
+        }
+        catch(Exception e){
+            //do nothing
+        }
     }
     
     /**
@@ -159,11 +167,37 @@ public class Gui
     /**
      * box drawer
      */
-    public void drawBox(double x, double y, double width, double height){
-        UI.setColor(offWhite);
-        UI.fillRect(x,y ,width ,height);
-        UI.setColor(Color.black);
+    public void drawBox(double x, double y, double width, double height, Color color){
+        UI.setColor(color);
         UI.drawRect(x,y ,width ,height);
+    }
+    
+    /**
+     * highlight checker
+     */
+    public void drawHighlight(){
+        // checks what the current item or current highlight is on
+        //based on where highlight is supposed to be drawhighlight will draw the highlight in the correct place
+        // will be able to set and unset the highlight
+        //item 1
+        if(this.charCol.getCharacter().getCurrItem().getId() == 0 
+            && this.invLight == true){
+            this.drawBox(ITEM_X - 10, ITEM_Y - 10, ITEM_SIDE + 20, ITEM_SIDE + 20, Color.green);
+        }
+        //item 2
+        else if(this.charCol.getCharacter().getCurrItem().getId() == 1
+            && this.invLight == true){
+            this.drawBox(ITEM_X - 10 , ITEM_Y - 10 + (ITEM_SIDE + 5), ITEM_SIDE + 20, ITEM_SIDE + 20, Color.green);
+        }
+        //item 3
+        else if(this.charCol.getCharacter().getCurrItem().getId() == 2
+            && this.invLight == true){
+            this.drawBox(ITEM_X - 10, ITEM_Y - 10 + 2 * (ITEM_SIDE + 5), ITEM_SIDE + 20, ITEM_SIDE + 20, Color.green);
+        }
+        //hand item
+        else if(this.handLight == true){
+            this.drawBox(GOLD_X - 5 ,ITEM_Y + 50, ITEM_SIDE * 2 + 10, ITEM_SIDE * 2 + 10, Color.green);
+        }
     }
     
     /**
@@ -186,9 +220,11 @@ public class Gui
             if(action.equals("clicked") && mouseX > GOLD_X + 95 && mouseX < GOLD_X + 105 && mouseY > ITEM_Y + 5 && mouseY < ITEM_Y + 15){
                 //Gold up button 
                 this.charCol.getCharacter().addGold();
+                this.draw();
             }else if(action.equals("clicked") && mouseX > GOLD_X + 95 && mouseX < GOLD_X + 105 && mouseY > ITEM_Y + 20 && mouseY < ITEM_Y + 30){
                 //Gold down button
                 this.charCol.getCharacter().takeGold();
+                this.draw();
             }
             //checks mouse is in right place, and for highlight.
             //item 1
@@ -200,7 +236,6 @@ public class Gui
                     this.boxText2 = null;
                     this.invLight = true;
                     this.draw();
-                    UI.drawRect(ITEM_X - 10, ITEM_Y - 10, ITEM_SIDE + 20, ITEM_SIDE + 20);
                 }
                 //if highlithed item is clicked again
                 else if(this.invLight == true){
@@ -233,7 +268,6 @@ public class Gui
                     this.boxText2 = null;
                     this.invLight = true;
                     this.draw();
-                    UI.drawRect(ITEM_X - 10 , ITEM_Y - 10 + (ITEM_SIDE + 5), ITEM_SIDE + 20, ITEM_SIDE + 20);
                 }
                 //if highlithed item is clicked again
                 else if(this.invLight == true){
@@ -266,7 +300,6 @@ public class Gui
                     this.boxText2 = null;
                     this.invLight = true;
                     this.draw();
-                    UI.drawRect(ITEM_X - 10, ITEM_Y - 10 + 2 * (ITEM_SIDE + 5), ITEM_SIDE + 20, ITEM_SIDE + 20);
                 }
                 //if highlithed item is clicked again
                 else if(this.invLight == true){
@@ -297,8 +330,6 @@ public class Gui
                     this.boxText2 = null;                         
                     this.handLight = true;
                     this.draw();
-                    // draw rect here
-                    UI.drawRect(GOLD_X - 5 ,ITEM_Y + 50, ITEM_SIDE * 2 + 10, ITEM_SIDE * 2 + 10);
                 }
                 else if(this.handLight == true && this.invLight == false){
                     //remove highlight
