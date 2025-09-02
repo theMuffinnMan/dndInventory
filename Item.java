@@ -46,4 +46,10 @@ public class Item
         //returns items name
         return id;
     }
+    /**
+     * id setter
+     */
+    public void setId(int key){
+        this.id = key;
+    }
 }

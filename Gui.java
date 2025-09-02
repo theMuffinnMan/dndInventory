@@ -22,14 +22,14 @@ public class Gui
     
     //display sizes
     private final double ITEM_SIDE = 50;
-    private final double ITEM_X = 450;
+    private final double ITEM_X = 510;
     private final double ITEM_Y = 50;
     
     private final double GOLD_X = 330;
     
     //highlight swap trackers
-    private boolean handLight = false;
     private boolean invLight = false;
+    private boolean handLight = false;
     
     
     /**
@@ -57,11 +57,11 @@ public class Gui
         UI.clearGraphics();
         // background
         UI.setColor(offWhite);
-        UI.fillRect(0,0, 550, 480);
+        UI.fillRect(0,0, 600, 480);
 
         UI.setFontSize(50);
         UI.setColor(Color.black);
-        UI.drawRect(0,0, 550, 480);
+        UI.drawRect(0,0, 600, 480);
         
         // character
         this.drawBox(110, 30, 200, 350);
@@ -84,7 +84,7 @@ public class Gui
         UI.drawImage(this.charCol.getCharacter().getHand().getImage(), 335, ITEM_Y + 60, ITEM_SIDE * 2 - 10, ITEM_SIDE * 2 - 10);
         
         //text box under inventory
-        this.drawBox(GOLD_X, 230, 170, ITEM_SIDE * 2);
+        this.drawBox(GOLD_X, 230, 230, ITEM_SIDE * 2);
         
         //Stats
         for( int i = 0; i < 3; i++){
@@ -191,82 +191,167 @@ public class Gui
                 this.charCol.getCharacter().takeGold();
             }
             //checks mouse is in right place, and for highlight.
+            //item 1
             else if(action.equals("clicked") && mouseX > ITEM_X && mouseX < ITEM_X + ITEM_SIDE && mouseY > ITEM_Y && mouseY < ITEM_Y + ITEM_SIDE){
-                //item 1
-                //item text
-                this.boxText1 = this.charCol.getCharacter().getInv().get(0).getName();
-                this.boxText2 = null;
-                //swap item with hand item
-                this.charCol.getCharacter().setHand(0, this.charCol.getCharacter().getInv().get(0));
+                if(this.invLight == false && this.handLight == false){
+                    //item text
+                    this.charCol.getCharacter().setCurrItem(this.charCol.getCharacter().getInv().get(0));
+                    this.boxText1 = this.charCol.getCharacter().getCurrItem().getName();
+                    this.boxText2 = null;
+                    this.invLight = true;
+                    this.draw();
+                    UI.drawRect(ITEM_X - 10, ITEM_Y - 10, ITEM_SIDE + 20, ITEM_SIDE + 20);
+                }
+                //if highlithed item is clicked again
+                else if(this.invLight == true){
+                    //remove highlight
+                    this.invLight = false;
+                    this.draw();
+                }
+                //if different item is clicked for highlight
+                else if(this.invLight == true){
+                    //swap highlight
+                }
+                else{
+                    //swap item with hand item
+
+                    this.charCol.getCharacter().setCurrItem(this.charCol.getCharacter().getInv().get(0));
+                    this.charCol.getCharacter().setHand();
+
+                    this.invLight = false;
+                    this.handLight = false;
+                    this.draw();
+                }
             }
+            //item 2
             else if(action.equals("clicked") && mouseX > ITEM_X && mouseX < ITEM_X + ITEM_SIDE && 
                     mouseY > ITEM_Y + ITEM_SIDE + 5 && mouseY < ITEM_Y + (2 * ITEM_SIDE) + 5){
-                //item 2 475, 130, 40, 40
-                //item text
-                this.boxText1 = this.charCol.getCharacter().getInv().get(1).getName();
-                this.boxText2 = null;
-                //swap item with hand item
-                this.charCol.getCharacter().setHand(1, this.charCol.getCharacter().getInv().get(1));
+                if(this.invLight == false && this.handLight == false){
+                    //item text
+                    this.charCol.getCharacter().setCurrItem(this.charCol.getCharacter().getInv().get(1));
+                    this.boxText1 = this.charCol.getCharacter().getCurrItem().getName();
+                    this.boxText2 = null;
+                    this.invLight = true;
+                    this.draw();
+                    UI.drawRect(ITEM_X - 10 , ITEM_Y - 10 + (ITEM_SIDE + 5), ITEM_SIDE + 20, ITEM_SIDE + 20);
+                }
+                //if highlithed item is clicked again
+                else if(this.invLight == true){
+                    //remove highlight
+                    this.invLight = false;
+                    this.draw();
+                }
+                //if different item is clicked for highlight
+                else if(this.invLight == true){
+                    //swap highlight
+                }
+                else{
+                    //swap item with hand item
+                    
+                    this.charCol.getCharacter().setCurrItem(this.charCol.getCharacter().getInv().get(1));
+                    this.charCol.getCharacter().setHand();
+
+                    this.invLight = false;
+                    this.handLight = false;
+                    this.draw();
+                }
             }
+            //item 3
             else if(action.equals("clicked") && mouseX > ITEM_X && mouseX < ITEM_X + ITEM_SIDE && 
                     mouseY > ITEM_Y + 2 * (ITEM_SIDE + 5) && mouseY < ITEM_Y + 2*(ITEM_SIDE + 5) + ITEM_SIDE) {
-                //item 3 415, 190, 40, 40
-                //item text
-                this.boxText1 = this.charCol.getCharacter().getInv().get(2).getName();
-                this.boxText2 = null;
-                //swap item with hand item
-                this.charCol.getCharacter().setHand(2, this.charCol.getCharacter().getInv().get(2));
+                if(this.invLight == false && this.handLight == false){
+                    //item text
+                    this.charCol.getCharacter().setCurrItem(this.charCol.getCharacter().getInv().get(2));
+                    this.boxText1 = this.charCol.getCharacter().getCurrItem().getName();
+                    this.boxText2 = null;
+                    this.invLight = true;
+                    this.draw();
+                    UI.drawRect(ITEM_X - 10, ITEM_Y - 10 + 2 * (ITEM_SIDE + 5), ITEM_SIDE + 20, ITEM_SIDE + 20);
+                }
+                //if highlithed item is clicked again
+                else if(this.invLight == true){
+                    //remove highlight
+                    this.invLight = false;
+                    this.draw();
+                }
+                //if different item is clicked for highlight
+                else if(this.invLight == true){
+                    //swap highlight
+                }
+                else{
+                    //swap item with hand item
+                    this.charCol.getCharacter().setCurrItem(this.charCol.getCharacter().getInv().get(2));
+                    this.charCol.getCharacter().setHand();
+
+                    this.invLight = false;
+                    this.handLight = false;
+                    this.draw();
+                }
             }
             //hand item
             else if(action.equals("clicked") && mouseX > GOLD_X && mouseX < GOLD_X + ITEM_SIDE * 2 && 
-                    mouseY > ITEM_Y + 55 && mouseY < ITEM_Y + 55 + ITEM_SIDE * 2){
-                    //draw text in item box when clicked on
-                    //GOLD_X,ITEM_Y + 55, ITEM_SIDE * 2, ITEM_SIDE * 2
+                mouseY > ITEM_Y + 55 && mouseY < ITEM_Y + 55 + ITEM_SIDE * 2){
+                //draw text in item box when clicked on
+                if(this.handLight == false && this.invLight == false){
                     this.boxText1 = this.charCol.getCharacter().getHand().getName();
-                    this.boxText2 = null;
+                    this.boxText2 = null;                         
+                    this.handLight = true;
+                    this.draw();
+                    // draw rect here
+                    UI.drawRect(GOLD_X - 5 ,ITEM_Y + 50, ITEM_SIDE * 2 + 10, ITEM_SIDE * 2 + 10);
+                }
+                else if(this.handLight == true && this.invLight == false){
+                    //remove highlight
+                    this.handLight = false;
+                    this.draw();
+                }else{
+                    //swaphand
+                    this.handLight = false;
+                    this.invLight = false;
+                    this.charCol.getCharacter().setHand();
+                    this.draw();
+                }
             }
-            
-            //stat clickables
-            //hp
             else if(action.equals("clicked") && mouseX > 10 && mouseX < 90 && 
                     mouseY > ITEM_Y && mouseY < ITEM_Y + ITEM_SIDE){
-                    //draw text in item box when clicked on
-                    this.boxText1 = "Hit Points!";
-                    this.boxText2 = "How healthly you are!";
+                //draw text in item box when clicked on
+                this.boxText1 = "Hit Points!";
+                this.boxText2 = "How healthly you are!";
+                this.draw();
             }
             //stregnth
             else if(action.equals("clicked") && mouseX > 10 && mouseX < 90 && 
                     mouseY > ITEM_Y + 115 && mouseY < ITEM_Y + ITEM_SIDE + 115){
-                    //draw text in item box when clicked on
-                    this.boxText1 = "Strength!";
-                    this.boxText2 = "How strong you are!";
+                //draw text in item box when clicked on
+                this.boxText1 = "Strength!";
+                this.boxText2 = "How strong you are!";
+                this.draw();
             }
             //intellegence
             else if(action.equals("clicked") && mouseX > 10 && mouseX < 90 && 
                     mouseY > ITEM_Y +(115 * 2) && mouseY < ITEM_Y +(115 * 2) + ITEM_SIDE){
-                    //draw text in item box when clicked on
-                    this.boxText1 = "Intellegence!";
-                    this.boxText2 = "How smart you are!";
+                //draw text in item box when clicked on
+                this.boxText1 = "Intellegence!";
+                this.boxText2 = "How smart you are!";
+                this.draw();
             }
             //gold
             else if(action.equals("clicked") && mouseX > GOLD_X && mouseX < GOLD_X + 110 && 
                     mouseY > ITEM_Y && mouseY < ITEM_Y + 35){
-                    //draw text in item box when clicked on
-                    this.boxText1 = "Gold!";
-                    this.boxText2 = "How much money you have!";
+                //draw text in item box when clicked on
+                this.boxText1 = "Gold!";
+                this.boxText2 = "How rich you are!";
+                this.draw();
             }
             //name and picture
             else if(action.equals("clicked") && mouseX > 110 && mouseX < 310 && 
                     mouseY > 30 && mouseY < 415){
-                    //draw text in item box when clicked on
-                    this.boxText1 = this.charCol.getCharacter().getName();
-                    this.boxText2 = "That's you!";
+                //draw text in item box when clicked on
+                this.boxText1 = this.charCol.getCharacter().getName();
+                this.boxText2 = "That's you!";
+                this.draw();
             }
-            this.draw();
-            
-        
-            //hand item
-        }
+                }
         catch(Exception e){
             //do nothing
         }

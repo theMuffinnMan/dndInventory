@@ -20,8 +20,7 @@ public class Character
     private int gold;
     
     private ArrayList<Item> inventory;
-    private static final int MAX_INV_SIZE = 4;
-    private int currInvId = 2;
+ 
     private Item currItem;
     
     private Item handItem;
@@ -43,44 +42,48 @@ public class Character
         //inventory 
         inventory = new ArrayList< Item>();
         //item creation
-        Item i1 = new Item(item1Name, item1Img, 1);
-        Item i2 = new Item(item2Name, item2Img, 2);
+        Item i1 = new Item(item1Name, item1Img, 0);
+        Item i2 = new Item(item2Name, item2Img, 1);
         //place items into HashMap
         this.inventory.add(i1);
         this.inventory.add(i2);
         
         // set hand item
-        Item i3 = new Item(itemHandName, item3Img, 3);
+        Item i3 = new Item(itemHandName, item3Img, 2);
         this.handItem = i3;
         
-    }
-    
-      /**
-       * find a card based off the cards name.
-     * set the current instance card if found
-  
-     * @return true or false
-     */
-    public boolean findItem(int key) {
-      //search for the item
-      for (int itemId = 0; itemId < inventory.size(); itemId++) {
-        if (inventory.get(itemId).equals(key)) {
-          this.currItem = inventory.get(itemId);
-          return true;
-        }
-      }
-      return false;
     }
 
     /**
      * hand item setter
      */
-    public void setHand(int key, Item swapItem){
-        //remove current item from inventory
-        this.inventory.set(key, this.handItem);
+    public void setHand(){
         
-        //set current item to hand
-        this.handItem = swapItem;
+        this.handItem.setId(this.currItem.getId());
+        
+        //remove current item from inventory
+        this.inventory.set(this.currItem.getId(), this.handItem);
+        
+        //set hand item to hand
+        this.handItem = this.currItem;
+        
+        this.currItem = this.inventory.get(this.handItem.getId());
+    }
+    
+    /**
+     * current item setter
+     */
+    public void setCurrItem(Item newItem){
+        //sets a current item
+        this.currItem = newItem;
+    }
+    
+    /**
+     * current item getter
+     */
+    public Item getCurrItem(){
+        //sets a current item
+        return this.currItem;
     }
     
     /**
