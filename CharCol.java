@@ -24,8 +24,8 @@ public class CharCol
         //creates characters for collection
         Character c1 = new Character("Nadja", "img/charPlaceHold.jpg", 24, 15, 8, 25, 
         "Symbol of Urden", "img/urdenPlaceHold.jpg", "Plate Armour", "img/armourPlaceHold.jpg", "Bell Greatsword", "img/greatswordPlaceHold.jpg");
-        Character c2 = new Character("Mika", "img/charPlaceHold.jpg", 20, 10, 16, 35,
-        "Dreadhelm", "img/notFound.jpg", "Catalyst", "img/notFound.jpg", "Moonbeam", "img/notFound.jpg");
+        Character c2 = new Character("Micah", "img/micah.jpg", 20, 10, 16, 35,
+        "Fireball Helmet", "img/helmet.jpg", "Catalyst", "img/catalyst.jpg", "Moonbeam", "img/moonbeam.jpg");
         
         //puts character in collection
         this.characterCollection.put(1, c1);
