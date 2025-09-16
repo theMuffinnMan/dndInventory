@@ -12,9 +12,15 @@ public class Character {
   // instance variables - replace the example below with your own
   private String name;
   private String image;
+  private String ability;
   private int health;
   private int strength;
   private int intellegence;
+  private int agility;
+  
+  private static final int STAT_MAX = 20;
+  private static final int STAT_MIN = 8;
+  private static final int HP_MAX = 100;
   
   private int gold;
   
@@ -27,19 +33,22 @@ public class Character {
   /**
    * Constructor for objects of class character.
    */
-  public Character(String nm, String img, int hp, int str, int intel, int gp, 
+  public Character(String nm, String img, String abil,
+          int hp, int str, int intel, int agil, int gp, 
           String item1Name, String item1Img, String item2Name, String item2Img, 
           String itemHandName, String item3Img) {
     // initialise instance variables
-    name = nm;
-    image = img;
-    health = hp;
-    strength = str;
-    intellegence = intel;
-    gold = gp;
+    this.name = nm;
+    this.image = img;
+    this.ability = abil;
+    this.health = hp;
+    this.strength = str;
+    this.intellegence = intel;
+    this.agility = agil;
+    this.gold = gp;
     
     //inventory 
-    inventory = new ArrayList<Item>();
+    this.inventory = new ArrayList<Item>();
     //item creation
     Item i1 = new Item(item1Name, item1Img, 0);
     Item i2 = new Item(item2Name, item2Img, 1);
@@ -108,7 +117,15 @@ public class Character {
   
   public String getImage() {
     //returns image file name
-    return image;
+    return this.image;
+  }
+  /**
+   * Ability getter.
+   */
+  
+  public String getAbility() {
+    //returns image file name
+    return this.ability;
   }
   /**
    * Health getter.
@@ -118,6 +135,28 @@ public class Character {
     //returns health value
     return health;
   }
+  /**
+   * Health setter add.
+   */
+  
+  public void addHp() {
+    //check if strength is 0 or lower
+    if (this.strength < HP_MAX) {
+      //take one strength
+      this.health++;
+    }
+  }
+  /**
+   * Health setter minus.
+   */
+  
+  public void takeHp() {
+    //check if strength is 0 or lower
+    if (this.health > 0) {
+      //take one strength
+      this.health--;
+    }
+  }
   
   /**
    * Strength getter.
@@ -125,7 +164,29 @@ public class Character {
   
   public int getStrength() {
     //returns strength value
-    return strength;
+    return this.strength;
+  }
+  /**
+   * strength setter add.
+   */
+  
+  public void addStrength() {
+    //check if strength is 20 
+    if (this.strength < STAT_MAX) {
+      //add one strength
+      this.strength++;
+    }
+  }
+  /**
+   * Gold setter minus.
+   */
+  
+  public void takeStrength() {
+    //check if strength is 0 or lower
+    if (this.strength > STAT_MIN) {
+      //take one strength
+      this.strength--;
+    }
   }
   
   /**
@@ -134,7 +195,60 @@ public class Character {
   
   public int getIntel() {
     //returns intellegence value
-    return intellegence;
+    return this.intellegence;
+  }
+  /**
+   * Intellegence setter add.
+   */
+  
+  public void addInt() {
+    //check if gold is 0 or lower
+    if (this.intellegence < STAT_MAX) {
+      //take one gold
+      this.intellegence++;
+    }
+  }
+  /**
+   * Intellegence setter minus.
+   */
+  
+  public void takeInt() {
+    //check if gold is 0 or lower
+    if (this.intellegence > STAT_MIN) {
+      //take one gold
+      this.intellegence--;
+    }
+  }
+  
+  /**
+   * agility getter.
+   */
+  
+  public int getAgil() {
+    //returns intellegence value
+    return this.agility;
+  }
+  /**
+   * Agility setter add.
+   */
+  
+  public void addAgil() {
+    //check if gold is 0 or lower
+    if (this.agility < STAT_MAX) {
+      //add agility
+      this.agility++;
+    }
+  }
+  /**
+   * Agility setter minus.
+   */
+  
+  public void takeAgil() {
+    //check if gold is 0 or lower
+    if (this.agility > STAT_MIN) {
+      //take one gold
+      this.agility--;
+    }
   }
   
   /**
@@ -143,7 +257,7 @@ public class Character {
   
   public int getGold() {
     //returns gold value
-    return gold;
+    return this.gold;
   }
   
   /**

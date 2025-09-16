@@ -89,11 +89,30 @@ public class Gui {
     //text box under inventory
     this.drawBox(GOLD_X, 230, 230, ITEM_SIDE * 2, Color.black);
     
+    // SPECIAL ABILITY
+    this.drawBox(GOLD_X + 85, ITEM_SIDE * 7, ITEM_SIDE, ITEM_SIDE, Color.black);
+    UI.drawImage("img/ability.jpg",
+                GOLD_X + 85, ITEM_SIDE * 7, ITEM_SIDE, ITEM_SIDE);
+    
     //Stats
-    for (int i = 0; i < 3; i++) {
-      this.drawBox(10, ITEM_SIDE + (115 * i), 90, ITEM_SIDE, Color.black);
+    for (int i = 0; i < 4; i++) {
+      this.drawBox(10, 35 + (100 * i), 90, ITEM_SIDE + 25, Color.black);
     }
 
+    //stats up
+    for (int i = 0; i < 4; i++) {
+      UI.setColor(Color.green);
+      UI.fillRect(70, 85 + (100 * i), 15, 15);
+      this.drawBox(70, 85 + (100 * i), 15, 15, Color.black);
+    }
+    
+    // stats down
+    for (int i = 0; i < 4; i++) {
+      UI.setColor(Color.red);
+      UI.fillRect(30, 85 + (100 * i), 15, 15);
+      this.drawBox(30, 85 + (100 * i), 15, 15, Color.black);
+    }
+    
     // gold
     this.drawBox(this.GOLD_X, this.ITEM_SIDE, 110, 35, Color.black);
     //gold up
@@ -113,10 +132,12 @@ public class Gui {
     //words
     UI.setFontSize(22);
     UI.setColor(Color.black);
+    
     //stats
-    UI.drawString("HP: " + this.charCol.getCharacter().getHp(), 15, ITEM_SIDE + 35);
-    UI.drawString("STR: " + this.charCol.getCharacter().getStrength(), 15, ITEM_SIDE + 150);
-    UI.drawString("INT: " + this.charCol.getCharacter().getIntel(), 15, ITEM_SIDE + 265);
+    UI.drawString("HP: " + this.charCol.getCharacter().getHp(), 15, ITEM_SIDE + 25);
+    UI.drawString("STR: " + this.charCol.getCharacter().getStrength(), 15, ITEM_SIDE + 125);
+    UI.drawString("INT: " + this.charCol.getCharacter().getIntel(), 15, ITEM_SIDE + 225);
+    UI.drawString("AGL: " + this.charCol.getCharacter().getAgil(), 15, ITEM_SIDE + 325);
     
     //gold
     UI.drawString("Gold: " + this.charCol.getCharacter().getGold(),
@@ -237,8 +258,57 @@ public class Gui {
       } else if (action.equals("clicked") && mouseX > GOLD_X + 95 
           && mouseX < GOLD_X + 105 && mouseY > ITEM_SIDE + 20 
           && mouseY < ITEM_SIDE + 30) {
-        //Gold down button
+        //Gold down button---
         this.charCol.getCharacter().takeGold();
+        this.draw();
+      } else if (action.equals("clicked") && mouseX > 70 
+          && mouseX < 85 && mouseY > 85 
+          && mouseY < ITEM_SIDE * 2) {
+        //Hp up
+        //70, 85 + (100 * i), 15, 15
+        this.charCol.getCharacter().addHp();
+        this.draw();
+      } else if (action.equals("clicked") && mouseX > 30
+          && mouseX < 45 && mouseY > 85 
+          && mouseY < ITEM_SIDE * 2) {
+        //Hp down
+        this.charCol.getCharacter().takeHp();
+        this.draw();
+      } else if (action.equals("clicked") && mouseX > 70
+          && mouseX < 85 && mouseY > 185 
+          && mouseY < ITEM_SIDE * 4) {
+        //str up
+        this.charCol.getCharacter().addStrength();
+        this.draw();
+      } else if (action.equals("clicked") && mouseX > 30
+          && mouseX < 45 && mouseY > 185 
+          && mouseY < ITEM_SIDE * 4) {
+        //str down
+        this.charCol.getCharacter().takeStrength();
+        this.draw();
+      } else if (action.equals("clicked") && mouseX > 70 
+          && mouseX < 85 && mouseY > 285 
+          && mouseY < ITEM_SIDE *  6) {
+        //int up
+        this.charCol.getCharacter().addInt();
+        this.draw();
+      } else if (action.equals("clicked") && mouseX > 30
+          && mouseX < 45 && mouseY > 285 
+          && mouseY < ITEM_SIDE * 6) {
+        //int down
+        this.charCol.getCharacter().takeInt();
+        this.draw();
+      } else if (action.equals("clicked") && mouseX > 70 
+          && mouseX < 85 && mouseY > 385
+          && mouseY < ITEM_SIDE * 8) {
+        //agil up
+        this.charCol.getCharacter().addAgil();
+        this.draw();
+      } else if (action.equals("clicked") && mouseX > 30
+          && mouseX < 45 && mouseY > 385 
+          && mouseY < ITEM_SIDE * 8) {
+        //agil down
+        this.charCol.getCharacter().takeAgil();
         this.draw();
       } else if (action.equals("clicked") && mouseX > ITEM_X 
           && mouseX < ITEM_X + ITEM_SIDE && mouseY > ITEM_SIDE 
@@ -346,25 +416,33 @@ public class Gui {
           this.charCol.getCharacter().setHand();
           this.draw();
         }
-      } else if (action.equals("clicked") && mouseX > 10 && mouseX < ITEM_SIDE * 2 
-          && mouseY > ITEM_SIDE && mouseY < ITEM_SIDE + ITEM_SIDE) {
+      } else if (action.equals("clicked") && mouseX > 10 && mouseX < ITEM_SIDE * 2  
+          && mouseY > 35 && mouseY < ITEM_SIDE * 2 + 10) {
         //draw text in item box when clicked on
+        //10, 35 + (100 * i), 90, ITEM_SIDE + 25
         this.boxText1 = "Hit Points!";
         this.boxText2 = "How healthly you are!";
         this.draw();
       } else if (action.equals("clicked") && mouseX > 10 && mouseX < ITEM_SIDE * 2 
-          && mouseY > ITEM_SIDE + 115 && mouseY < ITEM_SIDE + ITEM_SIDE + 115) {
+          && mouseY > 135 && mouseY < ITEM_SIDE * 4 + 10) {
         //stregnth
         //draw text in item box when clicked on
         this.boxText1 = "Strength!";
         this.boxText2 = "How strong you are!";
         this.draw();
-      } else if (action.equals("clicked") && mouseX > 10 && mouseX < ITEM_SIDE * 2  
-          && mouseY > ITEM_SIDE + (115 * 2) && mouseY < ITEM_SIDE + (115 * 2) + ITEM_SIDE) {
+      } else if (action.equals("clicked") && mouseX > 10 && mouseX < ITEM_SIDE * 2 
+          && mouseY > 235 && mouseY < ITEM_SIDE * 6 + 10) {
         //intellegence
         //draw text in item box when clicked on
         this.boxText1 = "Intellegence!";
         this.boxText2 = "How smart you are!";
+        this.draw();
+      } else if (action.equals("clicked") && mouseX > 10 && mouseX < ITEM_SIDE * 2 
+          && mouseY > 335 && mouseY < ITEM_SIDE * 8 + 10) {
+        //agility
+        //draw text in item box when clicked on
+        this.boxText1 = "Agility!";
+        this.boxText2 = "How fast you are!";
         this.draw();
       } else if (action.equals("clicked") && mouseX > GOLD_X && mouseX < GOLD_X + 110 
           && mouseY > ITEM_SIDE && mouseY < ITEM_SIDE + 35) {
@@ -379,6 +457,15 @@ public class Gui {
         //draw text in item box when clicked on
         this.boxText1 = this.charCol.getCharacter().getName();
         this.boxText2 = "That's you!";
+        this.draw();
+      } else if (action.equals("clicked") && mouseX > GOLD_X + 80 
+          && mouseX < GOLD_X + 130 
+          && mouseY > ITEM_SIDE * 7 && mouseY < ITEM_SIDE * 8) {
+        //special ability
+        //draw text in item box when clicked on
+        UI.setFontSize(12);
+        this.boxText1 = "Special Ability!";
+        this.boxText2 = this.charCol.getCharacter().getAbility();
         this.draw();
       }
     } catch (Exception e) {
